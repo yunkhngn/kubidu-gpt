@@ -2,47 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --background: 270 30% 96%;
+    --foreground: 270 20% 15%;
+    --card: 270 30% 98%;
+    --card-foreground: 270 20% 15%;
+    --primary: 270 70% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 90% 65%;
+    --secondary-foreground: 45 90% 15%;
+    --muted: 270 20% 90%;
+    --muted-foreground: 270 10% 45%;
+    --accent: 170 60% 50%;
+    --accent-foreground: 170 60% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.75rem;
+    --border: 270 20% 88%;
+    --input: 270 20% 88%;
+    --ring: 270 70% 55%;
+    --radius: 1rem;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 270 25% 8%;
+    --foreground: 270 10% 95%;
+    --card: 270 25% 12%;
+    --card-foreground: 270 10% 95%;
+    --primary: 270 70% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 85% 60%;
+    --secondary-foreground: 45 90% 10%;
+    --muted: 270 20% 15%;
+    --muted-foreground: 270 10% 55%;
+    --accent: 170 60% 45%;
+    --accent-foreground: 170 60% 95%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --radius: 0.75rem;
+    --border: 270 15% 18%;
+    --input: 270 15% 18%;
+    --ring: 270 70% 60%;
+    --radius: 1rem;
   }
 }
 
@@ -50,25 +52,37 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* Fun gradient background */
+body {
+  background-image:
+    radial-gradient(circle at 15% 85%, hsla(270, 70%, 60%, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 85% 15%, hsla(45, 85%, 60%, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, hsla(170, 60%, 45%, 0.04) 0%, transparent 50%);
 }
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--muted));
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground));
 }
@@ -77,59 +91,161 @@
 .markdown-content p {
   @apply mb-2 last:mb-0;
 }
+
 .markdown-content ul,
 .markdown-content ol {
   @apply mb-2 pl-5 last:mb-0;
 }
+
 .markdown-content ul {
   @apply list-disc;
 }
+
 .markdown-content ol {
   @apply list-decimal;
 }
+
 .markdown-content li {
   @apply mb-1;
 }
+
 .markdown-content code {
-  @apply rounded bg-muted px-1.5 py-0.5 text-sm font-mono;
+  @apply rounded-lg bg-muted/80 px-1.5 py-0.5 text-sm font-mono;
 }
+
 .markdown-content pre {
-  @apply mb-2 rounded-lg bg-muted p-3 overflow-x-auto last:mb-0;
+  @apply mb-2 rounded-xl bg-muted/80 p-3 overflow-x-auto last:mb-0;
 }
+
 .markdown-content pre code {
   @apply bg-transparent p-0;
 }
+
 .markdown-content strong {
   @apply font-semibold;
 }
+
 .markdown-content h1,
 .markdown-content h2,
 .markdown-content h3 {
   @apply font-semibold mb-2 mt-3 first:mt-0;
 }
+
 .markdown-content h1 {
   @apply text-xl;
 }
+
 .markdown-content h2 {
   @apply text-lg;
 }
+
 .markdown-content h3 {
   @apply text-base;
 }
+
 .markdown-content blockquote {
-  @apply border-l-2 border-muted-foreground/30 pl-3 italic mb-2;
+  @apply border-l-2 border-primary/40 pl-3 italic mb-2;
 }
+
 .markdown-content a {
-  @apply text-blue-400 underline underline-offset-2 hover:text-blue-300;
+  @apply text-primary underline underline-offset-2 hover:text-primary/80;
 }
 
 /* Typing animation */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
+
 .typing-cursor::after {
   content: '▊';
   animation: blink 1s infinite;
-  @apply ml-0.5 text-muted-foreground;
+  @apply ml-0.5 text-primary/60;
+}
+
+/* Bounce animation for avatar */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  70% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.bounce-in {
+  animation: bounceIn 0.5s ease-out;
+}
+
+/* Wiggle animation */
+@keyframes wiggle {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-5deg);
+  }
+
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+.wiggle-hover:hover {
+  animation: wiggle 0.3s ease-in-out;
+}
+
+/* Slide up animation for messages */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Pop animation for suggestion cards */
+@keyframes pop {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pop-in {
+  animation: pop 0.3s ease-out;
 }

@@ -2,8 +2,9 @@ import { useRef, useEffect } from 'react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ChatMessage } from './ChatMessage'
 import { ChatInput } from './ChatInput'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import type { ChatMessage as ChatMessageType } from '@/services/gemini'
-import { Bot, Sparkles, MessageSquare, Zap } from 'lucide-react'
+import { Gamepad2, Palette, Sparkles } from 'lucide-react'
 
 interface ChatWindowProps {
     messages: ChatMessageType[]
@@ -11,15 +12,16 @@ interface ChatWindowProps {
     onSend: (message: string) => void
     onStop?: () => void
     onNewChat: () => void
+    userAvatar?: string
 }
 
 const suggestions = [
-    { icon: Sparkles, text: 'Giải thích React hooks cho người mới' },
-    { icon: MessageSquare, text: 'Viết một bài thơ về Sài Gòn' },
-    { icon: Zap, text: 'Cách tối ưu hiệu năng website' },
+    { icon: Palette, text: 'Ê Kubidu vẽ gì hay vậy?', color: 'from-pink-500 to-rose-400' },
+    { icon: Gamepad2, text: 'Chơi game gì hay không?', color: 'from-purple-500 to-indigo-500' },
+    { icon: Sparkles, text: 'Khoe cái gì đi Kubidu!', color: 'from-yellow-400 to-orange-400' },
 ]
 
-export function ChatWindow({ messages, isLoading, onSend, onStop, onNewChat }: ChatWindowProps) {
+export function ChatWindow({ messages, isLoading, onSend, onStop, onNewChat, userAvatar }: ChatWindowProps) {
     const bottomRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -29,21 +31,29 @@ export function ChatWindow({ messages, isLoading, onSend, onStop, onNewChat }: C
     return (
         <div className="flex h-screen flex-col">
             {/* Header */}
-            <header className="flex items-center justify-between border-b border-border bg-background/80 backdrop-blur-xl px-6 py-3">
+            <header className="flex items-center justify-between border-b border-border bg-background/80 backdrop-blur-xl px-5 py-3">
                 <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 shadow-lg shadow-violet-600/20">
-                        <Bot className="h-5 w-5 text-white" />
-                    </div>
+                    <Avatar className="h-10 w-10 shrink-0 border-2 border-primary/30 wiggle-hover shadow-lg shadow-purple-500/20">
+                        <AvatarImage src="/avatar.jpg" className="object-cover" />
+                        <AvatarFallback className="bg-gradient-to-br from-purple-500 via-pink-400 to-yellow-400 text-white text-xl">
+                            🧒
+                        </AvatarFallback>
+                    </Avatar>
                     <div>
-                        <h1 className="text-sm font-semibold tracking-tight">Kubidu GPT</h1>
-                        <p className="text-[11px] text-muted-foreground">Powered by Gemini</p>
+                        <h1 className="text-base font-bold tracking-tight bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 bg-clip-text text-transparent">
+                            Kubidu GPT
+                        </h1>
+                        <div className="flex items-center gap-1.5">
+                            <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+                            <p className="text-[11px] text-muted-foreground">Đang online nè~</p>
+                        </div>
                     </div>
                 </div>
                 <button
                     onClick={onNewChat}
-                    className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    className="rounded-xl border-2 border-primary/20 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all hover:bg-primary/10 hover:border-primary/40 hover:text-foreground hover:scale-105"
                 >
-                    + Chat mới
+                    ✨ Chat mới
                 </button>
             </header>
 
@@ -51,28 +61,37 @@ export function ChatWindow({ messages, isLoading, onSend, onStop, onNewChat }: C
             <ScrollArea className="flex-1">
                 <div className="mx-auto max-w-3xl">
                     {messages.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center px-4 pt-[15vh]">
-                            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-600 shadow-2xl shadow-violet-600/30">
-                                <Bot className="h-8 w-8 text-white" />
+                        <div className="flex flex-col items-center justify-center px-4 pt-[12vh]">
+                            {/* Big mascot */}
+                            <div className="mb-6 h-32 w-32 overflow-hidden rounded-full border-4 border-primary/20 bounce-in shadow-2xl shadow-primary/20 bg-background">
+                                <img src="/avatar.jpg" alt="Kubidu" className="h-full w-full object-cover" />
                             </div>
-                            <h2 className="mb-2 text-2xl font-bold tracking-tight">
-                                Xin chào! 👋
+
+                            <h2 className="mb-1 text-2xl font-bold tracking-tight bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 bg-clip-text text-transparent">
+                                Yo! Tui là Kubidu
                             </h2>
+                            <p className="mb-2 text-base font-medium text-foreground/80">
+                                12 tuổi, pro gamer, hoạ sĩ tương lai 🎨🎮
+                            </p>
                             <p className="mb-8 max-w-md text-center text-sm text-muted-foreground">
-                                Mình là <span className="font-medium text-foreground">Kubidu GPT</span>, trợ lý AI thông minh.
-                                Hãy hỏi mình bất cứ điều gì nhé!
+                                Hỏi gì thì hỏi, tui trả lời hết á~ nhưng mà tui giỏi hơn bạn đó nha 😏
                             </p>
 
                             {/* Suggestion cards */}
-                            <div className="grid w-full max-w-lg gap-2">
+                            <div className="grid w-full max-w-md gap-2.5">
                                 {suggestions.map((item, i) => (
                                     <button
                                         key={i}
                                         onClick={() => onSend(item.text)}
-                                        className="group flex items-center gap-3 rounded-xl border border-border bg-muted/30 px-4 py-3 text-left text-sm text-muted-foreground transition-all hover:border-muted-foreground/30 hover:bg-muted/60 hover:text-foreground"
+                                        className="pop-in group flex items-center gap-3 rounded-2xl border-2 border-border bg-card px-4 py-3.5 text-left text-sm transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 hover:scale-[1.02] active:scale-[0.98]"
+                                        style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'backwards' }}
                                     >
-                                        <item.icon className="h-4 w-4 shrink-0 text-muted-foreground/60 transition-colors group-hover:text-violet-400" />
-                                        {item.text}
+                                        <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${item.color} text-white shadow-sm transition-transform group-hover:scale-110 group-hover:rotate-3`}>
+                                            <item.icon className="h-4 w-4" />
+                                        </div>
+                                        <span className="text-foreground/80 group-hover:text-foreground transition-colors">
+                                            {item.text}
+                                        </span>
                                     </button>
                                 ))}
                             </div>
@@ -84,6 +103,7 @@ export function ChatWindow({ messages, isLoading, onSend, onStop, onNewChat }: C
                                     key={i}
                                     message={msg}
                                     isLoading={isLoading && i === messages.length - 1 && msg.role === 'model'}
+                                    userAvatar={userAvatar}
                                 />
                             ))}
                         </div>

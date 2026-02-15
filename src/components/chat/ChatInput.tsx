@@ -40,13 +40,13 @@ export function ChatInput({ onSend, isLoading, onStop }: ChatInputProps) {
     return (
         <div className="border-t border-border bg-background/80 backdrop-blur-xl p-4">
             <div className="mx-auto max-w-3xl">
-                <div className="relative flex items-end gap-2 rounded-2xl border border-border bg-muted/50 px-4 py-3 transition-colors focus-within:border-muted-foreground/50 focus-within:bg-muted/80">
+                <div className="relative flex items-end gap-2 rounded-2xl border-2 border-primary/20 bg-card px-4 py-3 transition-all focus-within:border-primary/50 focus-within:shadow-lg focus-within:shadow-primary/10">
                     <textarea
                         ref={textareaRef}
                         value={input}
                         onChange={handleInput}
                         onKeyDown={handleKeyDown}
-                        placeholder="Nhập tin nhắn..."
+                        placeholder="Nói gì đi... 👀"
                         rows={1}
                         className={cn(
                             'flex-1 resize-none bg-transparent text-sm leading-relaxed',
@@ -60,7 +60,7 @@ export function ChatInput({ onSend, isLoading, onStop }: ChatInputProps) {
                         <Button
                             size="icon"
                             variant="ghost"
-                            className="h-8 w-8 shrink-0 rounded-xl hover:bg-destructive/20 hover:text-destructive"
+                            className="h-9 w-9 shrink-0 rounded-xl hover:bg-destructive/20 hover:text-destructive"
                             onClick={onStop}
                         >
                             <Square className="h-4 w-4" />
@@ -69,9 +69,9 @@ export function ChatInput({ onSend, isLoading, onStop }: ChatInputProps) {
                         <Button
                             size="icon"
                             className={cn(
-                                'h-8 w-8 shrink-0 rounded-xl transition-all',
+                                'h-9 w-9 shrink-0 rounded-xl transition-all',
                                 input.trim()
-                                    ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                                    ? 'bg-gradient-to-br from-purple-500 to-indigo-600 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-105'
                                     : 'bg-muted text-muted-foreground cursor-not-allowed'
                             )}
                             onClick={handleSend}
@@ -82,7 +82,7 @@ export function ChatInput({ onSend, isLoading, onStop }: ChatInputProps) {
                     )}
                 </div>
                 <p className="mt-2 text-center text-[11px] text-muted-foreground/50">
-                    Kubidu GPT có thể mắc lỗi. Hãy kiểm tra lại thông tin quan trọng.
+                    Kubidu đôi khi hơi bịa~ đừng tin hết nha 😜
                 </p>
             </div>
         </div>
